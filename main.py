@@ -3,6 +3,7 @@ import random
 import numpy as np
 import copy
 import math
+import time
 
 #варіант 303
 
@@ -161,6 +162,7 @@ print("y4av4="+str(round(b0 + b1*X1[3] + b2*X2[3] + b3*X3[3],2))+"="+ str(round(
 print("Значення співпадають")
 
 #Дисперсія по рядкам
+per_starttime = time.time()
 d1 = ((Y1[0] - y1av1)**2 + (Y2[0] - y1av1)**2 + (Y3[0] - y1av1)**2)/3
 d2 = ((Y1[1] - y2av2)**2 + (Y2[1] - y2av2)**2 + (Y3[1] - y2av2)**2)/3
 d3 = ((Y1[2] - y3av3)**2 + (Y2[2] - y3av3)**2 + (Y3[2] - y3av3)**2)/3
@@ -179,6 +181,11 @@ if Gp < Gt:
 else:
     print("Дисперсія  неоднорідна")
 print("Критерій Стьюдента")
+per_stop_time= time.time()
+per_time = per_stop_time - per_starttime
+print(per_time)
+
+per2start = time.time()
 sb = sum(dcouple)/N
 ssbs = sb/N*m
 sbs = ssbs**0.5
@@ -220,6 +227,10 @@ yy2 = b0 + b1*x1min + b2*x2max + b3*x3max
 yy3 = b0 + b1*x1max + b2*x2min + b3*x3max
 yy4 = b0 + b1*x1max + b2*x2max + b3*x3min
 print("Критерій Фішера")
+per2stop = time.time()
+per2time = per2stop - per2start
+
+persupstart = time.time()
 print(d," значимих коефіцієнтів")
 f4 = N - d
 
@@ -236,6 +247,9 @@ if Fp < Ft :
     print("Fp=",round(Fp,2),"<Ft",Ft,"Рівняння адекватно оригіналу")
 else:
     print("Fp=",round(Fp,2),">Ft",Ft,"Рівняння неадекватно оригіналу")
+    persupstop = time.time()
+    persuptime = persupstop - persupstart
+
 
   #Перевірка з взаємодією
 
@@ -292,6 +306,7 @@ else:
     #print("Значення приблизно співпадають")
 
     print("Дисперсія по рядкам")
+    per3start = time.time()
     d=[]
     for i in range(8):
         d.append(((Y1[i] - yavl[i])**2 + (Y2[i] - yavl[i])**2 + (Y3[i] - yavl[i])**2)/3)
@@ -306,7 +321,8 @@ else:
         print("Дисперсія однорідна")
     else:
         print("Дисперсія  неоднорідна")
-
+    per3stop = time.time()
+    per3time = per3stop - per3start
     print("Критерій Стьюдента")
     sb = sum(d)/N
     ssbs = sb/N*m
@@ -343,7 +359,7 @@ else:
     yy8 = b[0]+b[1]*x1max+b[2]*x2max+b[3]*x3max+b[4]*x1max*x2max+b[5]*x1max*x3max+b[6]*x2max*x3max+b[7]*x1max*x2max*x3max
 
     #Критерій Фішера
-
+    per4start = time.time()
     f4 = N - d
 
     sad = ((yy1-y1av1)**2+(yy2-y2av2)**2+(yy3-y3av3)**2+(yy4-y4av4)**2+(yy5-y5av5)**2+(yy6-y6av6)**2+(yy7-y7av7)**2+(yy8-y8av8)**2)*(m/(N-d))
@@ -363,6 +379,9 @@ else:
         print("Fp=",round(Fp,2),"<Ft",Ft,"Рівняння адекватно оригіналу")
     else:
         print("Fp=",round(Fp,2),">Ft",Ft,"Рівняння неадекватно оригіналу")
+        per4stop = time.time()
+        per4time = per4stop - per4start
+
 
   #Перевірка з урахуванням квадратичних елементів
 
@@ -407,6 +426,7 @@ else:
 
 
         #Дисперсія по рядкам
+        per5start = time.time()
         d=[]
         for i in range(15):
             d.append(((Y1[i] - yavl[i])**2 + (Y2[i] - yavl[i])**2 + (Y3[i] - yavl[i])**2)/3)
@@ -421,7 +441,8 @@ else:
             print("Дисперсія однорідна")
         else:
             print("Дисперсія  неоднорідна")
-
+        per5stop = time.time()
+        per5time = per5stop - per5start
         print("Критерій Стьюдента")
         sb = sum(d)/N
         ssbs = sb/N*m
@@ -445,7 +466,7 @@ else:
             t.append(abs(beta[i])/sbs)
 
 
-
+        per6start = time.time()
         f3 = f1*f2
         tchart  = 2.042
         d=11
@@ -492,3 +513,8 @@ else:
             print("Fp=",round(Fp,2),">Ft",Ft,"Рівняння неадекватно оригіналу")
         else:
             print("Fp=",round(Fp,2),"<Ft",Ft,"Рівняння адекватно оригіналу")
+
+        per6stop = time.time()
+        per6time = per6stop - per6start
+        print(per_time, per2time, per3time, per4time, per5time, per6time)
+
